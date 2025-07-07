@@ -361,6 +361,77 @@ body {
 .banner img {
   animation: updown 3s linear infinite;
 }
+
+.banner {
+  height: 100vh;
+}
+.banner-left {
+  background-color: #174730; /* match your theme */
+  color: #fff;
+  padding: 2rem;
+}
+.tagline {
+  font-size: 0.875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  opacity: 0.75;
+}
+.banner-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.txt-rotate .cursor {
+  display: inline-block;
+  animation: blink 1s steps(2) infinite;
+}
+@keyframes blink {
+  0%,
+  50%,
+  100% {
+    opacity: 1;
+  }
+  25%,
+  75% {
+    opacity: 0;
+  }
+}
+.banner-subtitle {
+  font-size: 1.125rem;
+  margin-top: 1rem;
+  max-width: 400px;
+}
+.banner-right {
+  overflow: hidden;
+}
+.banner-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.banner-values {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  color: #fff;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+.banner-values li {
+  opacity: 0.9;
+  margin-bottom: 0.5rem;
+}
+
+/* reset Bootstrap gutters on banner row */
+.no-gutters {
+  margin-right: 0;
+  margin-left: 0;
+}
+.no-gutters > [class*="col-"] {
+  padding-right: 0;
+  padding-left: 0;
+}
 @keyframes updown {
   0% {
     transform: translateY(-20px);
@@ -854,4 +925,117 @@ body {
 .proj-imgbx:hover .proj-txtx {
   top: 50%;
   opacity: 1;
+}
+
+/* Add to your main CSS */
+
+:root {
+  --sidebar-width: 200px;
+  --navbar-height: 75px;
+}
+
+/* Hide top navbar when scrolled */
+.hidden-navbar {
+  transform: translateY(-100%);
+  transition: transform 0.3s ease;
+}
+
+nav.navbar {
+  transition: transform 0.3s ease;
+}
+
+/* Add to your main CSS */
+
+:root {
+  --sidebar-width: 200px;
+  --navbar-height: 75px;
+}
+
+/* Hide top navbar when scrolled */
+.hidden-navbar {
+  transform: translateY(-100%);
+  transition: transform 0.3s ease;
+}
+nav.navbar {
+  transition: transform 0.3s ease;
+}
+
+/* Top navbar logo & icons container */
+.social-icon {
+  display: flex;
+  align-items: center;
+}
+
+/* Top navbar logo size */
+.navbar-logo {
+  width: 40px;
+  height: auto;
+  margin-left: 12px;
+}
+.navbar-logo-link {
+  display: inline-flex;
+}
+
+/* Sidebar container */
+.sidebar-links {
+  position: fixed;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: var(--sidebar-width);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  z-index: 999;
+}
+
+/* Sidebar logo hidden by default */
+.sidebar-logo {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+/* Show sidebar logo when scrolled */
+.sidebar-links.show-logo .sidebar-logo {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Sidebar logo bigger & centered */
+.sidebar-logo img {
+  width: 60px;
+  height: auto;
+  margin-bottom: 1rem;
+}
+
+.sidebar-links .nav-link {
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 12px 0;
+  width: 100%;
+  text-align: center;
+  opacity: 0.75;
+  transition: opacity 0.2s, background 0.2s;
+}
+
+.sidebar-links .nav-link:hover,
+.sidebar-links .nav-link.active {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Shift page content right */
+body {
+  margin-left: var(--sidebar-width);
+}
+
+.header-img {
+  width: 250px; /* adjust as needed */
+  height: 250px; /* keep width & height equal */
+  object-fit: cover; /* fill and crop */
+  border-radius: 50%; /* make it a circle */
+  display: block; /* remove inline-img whitespace */
+  margin: 0 auto; /* center if needed */
 }

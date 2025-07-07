@@ -1,3 +1,4 @@
+// src/components/NavBar.js
 import React, { useState, useEffect } from "react";
 import { Navbar, Container } from "react-bootstrap";
 import logo from "../assets/img/logo.png";
@@ -15,10 +16,9 @@ export const NavBar = () => {
   const [activeLink, setActiveLink] = useState("home");
   const [scrolled, setScrolled] = useState(false);
 
-  // <-- new "packages" added here, and contact href fixed
   const sections = [
     { key: "home", label: "Home", href: "#home" },
-    { key: "skills", label: "Skills", href: "#skills" },
+    { key: "brands", label: "Brands", href: "#brands" },
     { key: "projects", label: "Portfolio", href: "#projects" },
     { key: "packages", label: "Packages", href: "#packages" },
     { key: "contact", label: "Contact", href: "#contact" },
@@ -29,32 +29,25 @@ export const NavBar = () => {
       const scrollY = window.scrollY;
       setScrolled(scrollY > 50);
 
-      // figure out which section we're in
+      // update active section
       const halfway = scrollY + window.innerHeight / 2;
       let current = activeLink;
-      for (let { key, href } of sections) {
+      sections.forEach(({ key, href }) => {
         const el = document.querySelector(href);
-        if (el && halfway >= el.offsetTop) {
-          current = key;
-        }
-      }
-      if (current !== activeLink) {
-        setActiveLink(current);
-      }
+        if (el && halfway >= el.offsetTop) current = key;
+      });
+      if (current !== activeLink) setActiveLink(current);
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [activeLink, sections]);
+  }, [activeLink]);
 
   return (
     <Router>
-      {/* Top Navbar (logo + social icons) */}
-      <Navbar expand="md" className={scrolled ? "scrolled" : ""}>
-        <Container>
-          <Navbar.Brand href="/">
-            <img src={logo} alt="Logo" />
-          </Navbar.Brand>
+      {/* Top Navbar with social icons & logo on right (hides on scroll) */}
+      <Navbar expand="md" className={scrolled ? "hidden-navbar" : ""}>
+        <Container className="justify-content-end">
           <Navbar.Toggle aria-controls="navbar-content">
             <span className="navbar-toggler-icon" />
           </Navbar.Toggle>
@@ -95,16 +88,26 @@ export const NavBar = () => {
                   aria-label={label}
                   className="social-link"
                 >
-                  <Icon size={24} />
+                  <Icon size={28} />
                 </a>
               ))}
+              <HashLink to="#home" className="navbar-logo-link">
+                <img src={logo} alt="Logo" className="navbar-logo" />
+              </HashLink>
             </div>
           </Navbar.Collapse>
         </Container>
       </Navbar>
 
-      {/* Sidebar navigation */}
-      <aside className="sidebar-links">
+      {/* Sidebar with section links + logo shows only on scroll */}
+      <aside className={`sidebar-links ${scrolled ? "show-logo" : ""}`}>
+        <HashLink
+          to="#home"
+          onClick={() => setActiveLink("home")}
+          className="sidebar-logo"
+        >
+          <img src={logo} alt="Logo" />
+        </HashLink>
         {sections.map(({ key, label, href }) => (
           <HashLink
             key={key}
